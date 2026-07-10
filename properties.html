@@ -1,1 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
 
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Properties</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+background:#f5f7fb;
+}
+
+.results{
+padding:120px 8% 60px;
+}
+
+#title{
+font-size:38px;
+margin-bottom:40px;
+color:#006AFF;
+text-align:center;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:30px;
+}
+
+.house{
+background:white;
+border-radius:15px;
+overflow:hidden;
+box-shadow:0 10px 30px rgba(0,0,0,.12);
+transition:.3s;
+}
+
+.house:hover{
+transform:translateY(-8px);
+}
+
+.house img{
+width:100%;
+height:220px;
+object-fit:cover;
+}
+
+.content{
+padding:20px;
+}
+
+.price{
+font-size:28px;
+font-weight:bold;
+color:#006AFF;
+margin:15px 0;
+}
+
+.details{
+color:#666;
+margin:8px 0;
+}
+
+button{
+padding:12px 25px;
+background:#006AFF;
+border:none;
+color:white;
+border-radius:8px;
+cursor:pointer;
+margin-top:15px;
+}
+
+button:hover{
+background:#0055d6;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav>
+
+<div class="logo">
+Skye Real Estate
+</div>
+
+<ul>
+
+<li><a href="index.html">Home</a></li>
+
+<li><a href="properties.html">Properties</a></li>
+
+</ul>
+
+</nav>
+
+<section class="results">
+
+<h1 id="title">
+
+Properties
+
+</h1>
+
+<div class="grid" id="listings">
+
+</div>
+
+</section>
+
+<script>
+
+const homes=[
+
+{
+
+city:"cebu",
+
+title:"Modern Family Home",
+
+price:"₱5,500,000",
+
+beds:"3 Bedrooms",
+
+baths:"2 Bathrooms",
+
+image:"https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=900"
+
+},
+
+{
+
+city:"cebu",
+
+title:"Luxury Beach Villa",
+
+price:"₱12,000,000",
+
+beds:"5 Bedrooms",
+
+baths:"4 Bathrooms",
+
+image:"https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=900"
+
+},
+
+{
+
+city:"manila",
+
+title:"Modern Condo",
+
+price:"₱8,700,000",
+
+beds:"2 Bedrooms",
+
+baths:"2 Bathrooms",
+
+image:"https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=900"
+
+},
+
+{
+
+city:"davao",
+
+title:"Mountain House",
+
+price:"₱6,200,000",
+
+beds:"4 Bedrooms",
+
+baths:"3 Bathrooms",
+
+image:"https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=900"
+
+},
+
+{
+
+city:"palawan",
+
+title:"Ocean View House",
+
+price:"₱15,800,000",
+
+beds:"6 Bedrooms",
+
+baths:"5 Bathrooms",
+
+image:"https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=900"
+
+}
+
+];
+
+const params=new URLSearchParams(window.location.search);
+
+const city=(params.get("city")||"").toLowerCase();
+
+document.getElementById("title").innerHTML=
+
+city==""?
+
+"Featured Properties"
+
+:
+
+"Properties in "+city.charAt(0).toUpperCase()+city.slice(1);
+
+let html="";
+
+homes.forEach(home=>{
+
+if(city==""||home.city==city){
+
+html+=`
+
+<div class="house">
+
+<img src="${home.image}">
+
+<div class="content">
+
+<h2>${home.title}</h2>
+
+<p class="details">📍 ${home.city.toUpperCase()}</p>
+
+<div class="price">${home.price}</div>
+
+<p class="details">${home.beds}</p>
+
+<p class="details">${home.baths}</p>
+
+<button onclick="alert('Contact feature coming soon!')">
+
+Contact Agent
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+});
+
+if(html==""){
+
+html="<h2 style='text-align:center;'>No properties found.</h2>";
+
+}
+
+document.getElementById("listings").innerHTML=html;
+
+</script>
+
+</body>
+</html>
